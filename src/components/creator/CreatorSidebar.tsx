@@ -53,8 +53,16 @@ const CreatorSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: CreatorSidebarPro
         } md:hidden bg-gray-200 dark:bg-gray-900 transition-transform duration-300 ease-in-out`}
       >
         <div className="flex flex-col h-full pt-24 px-6 pb-8 overflow-y-auto">
+          {/* Logo */}
           <div className="mb-8">
-            <p className="text-gray-800 dark:text-white text-sm uppercase tracking-wider">
+            <Link to="/creator" className="flex justify-center mb-6">
+              <img 
+                src="/erasebg-transformed.png" 
+                alt="promReel Logo" 
+                className="h-16 w-16"
+              />
+            </Link>
+            <p className="text-gray-800 dark:text-white text-sm uppercase tracking-wider text-center">
               Creator Dashboard
             </p>
           </div>
@@ -81,8 +89,16 @@ const CreatorSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: CreatorSidebarPro
       {/* Sidebar for desktop */}
       <div className="hidden md:flex md:flex-col md:fixed md:w-64 md:inset-y-0 md:pt-20 bg-gray-200 dark:bg-gray-900">
         <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+          {/* Logo */}
           <div className="px-4 mb-6">
-            <p className="text-gray-800 dark:text-white text-sm font-medium uppercase tracking-wider">
+            <Link to="/creator" className="flex justify-center mb-6">
+              <img 
+                src="/erasebg-transformed.png" 
+                alt="promReel Logo" 
+                className="h-16 w-16"
+              />
+            </Link>
+            <p className="text-gray-800 dark:text-white text-sm font-medium uppercase tracking-wider text-center">
               Creator Dashboard
             </p>
           </div>
