@@ -23,9 +23,15 @@ const Header = () => {
     <header className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white shadow-md dark:shadow-lg">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link to={isDashboardLink} className="text-xl font-bold flex items-center">
-            <span className="text-[#ff9800]">Ad</span>
-            <span className="text-[#2b7de9]">Campaign</span>
+          <Link to={isDashboardLink} className="flex items-center space-x-3">
+            <img 
+              src="/erasebg-transformed.png" 
+              alt="promReel Logo" 
+              className="h-8 w-8"
+            />
+            <span className="text-xl font-bold text-gray-800 dark:text-white">
+              promReel
+            </span>
           </Link>
           
           {/* Desktop Menu */}

@@ -84,10 +84,14 @@ const Login = () => {
       <nav className="fixed top-0 left-0 right-0 bg-black/20 backdrop-blur-lg z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold">
-                <span className="text-[#ff9800]">Ad</span>
-                <span className="text-[#2b7de9]">Campaign</span>
+            <div className="flex items-center space-x-3">
+              <img 
+                src="/erasebg-transformed.png" 
+                alt="promReel Logo" 
+                className="h-8 w-8"
+              />
+              <h1 className="text-2xl font-bold text-white">
+                promReel
               </h1>
             </div>
             <div className="flex items-center space-x-4">
@@ -122,10 +126,16 @@ const Login = () => {
         {showLoginForm ? (
           <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 sm:p-8 m-4">
             <div className="text-center mb-6">
-              <h2 className="text-3xl font-bold">
-                <span className="text-[#ff9800]">Ad</span>
-                <span className="text-[#2b7de9]">Campaign</span>
-              </h2>
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <img 
+                  src="/erasebg-transformed.png" 
+                  alt="promReel Logo" 
+                  className="h-10 w-10"
+                />
+                <h2 className="text-3xl font-bold text-gray-800">
+                  promReel
+                </h2>
+              </div>
               <p className="text-gray-600 mt-2">
                 {isRegistering ? 'Create your account' : 'Sign in to access your dashboard'}
               </p>
@@ -144,7 +154,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
               {isRegistering && (
                 <div className="mb-4">
-                  <label htmlFor="name\" className="block text-gray-700 text-sm font-medium mb-2">
+                  <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-2">
                     Full Name
                   </label>
                   <input
