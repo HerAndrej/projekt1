@@ -1,0 +1,131 @@
+{
+  "common": {
+    "save": "Spremi",
+    "createdOn": "Kreirano",
+    "cancel": "Odustani",
+    "loading": "Učitavanje...",
+    "saving": "Spremanje...",
+    "back": "Natrag",
+    "delete": "Izbriši",
+    "edit": "Uredi",
+    "submit": "Pošalji",
+    "view": "Pogledaj",
+    "export": "Izvezi Podatke",
+    "status": {
+      "active": "Aktivno",
+      "completed": "Završeno",
+      "cancelled": "Otkazano",
+      "pending": "Na čekanju",
+      "approved": "Odobreno",
+      "rejected": "Odbijeno"
+    }
+  },
+  "auth": {
+    "login": "Prijava",
+    "register": "Registracija",
+    "email": "Email Adresa",
+    "password": "Lozinka",
+    "confirmPassword": "Potvrdi Lozinku",
+    "accountType": "Tip Računa",
+    "creator": "Kreator",
+    "admin": "Administrator",
+    "alreadyHaveAccount": "Već imate račun? Prijavite se",
+    "noAccount": "Nemate račun? Registrirajte se",
+    "demoCredentials": {
+      "title": "Demo podaci:",
+      "admin": "Admin: admin@example.com / password",
+      "creator": "Kreator: creator@example.com / password"
+    }
+  },
+  "profile": {
+    "settings": "Postavke Profila",
+    "description": "Upravljajte informacijama o profilu i postavkama računa",
+    "language": "Jezik",
+    "languages": {
+      "en": "Engleski",
+      "sr": "Srpski",
+      "hr": "Hrvatski"
+    },
+    "displayName": "Ime za Prikaz",
+    "socialLinks": "Društvene Mreže",
+    "changePassword": "Promijeni Lozinku",
+    "newPassword": "Nova Lozinka",
+    "confirmPassword": "Potvrdi Novu Lozinku",
+    "passwordMismatch": "Lozinke se ne podudaraju",
+    "updateSuccess": "Profil je uspješno ažuriran",
+    "updateError": "Greška pri ažuriranju profila"
+  },
+  "campaigns": {
+    "title": "Kampanje",
+    "details": {
+      "budget": {
+        "label": "Budžet"
+      }
+    },
+    "new": "Kreiraj Novu Kampanju",
+    "search": "Pretraži kampanje...",
+    "noCampaigns": "Nema pronađenih kampanja",
+    "tryAdjustSearch": "Pokušajte prilagoditi pretragu",
+    "createFirst": "Kreirajte svoju prvu kampanju",
+    "details": {
+      "title": "Detalji Kampanje",
+      "description": "Opis",
+      "requirements": "Zahtjevi",
+      "files": "Datoteke Kampanje",
+      "budget": {
+        "title": "Budžet",
+        "total": "Ukupni Budžet",
+        "spent": "Potrošeni Budžet",
+        "remaining": "Preostali Budžet",
+        "perView": "Zarada po 3k Pregleda"
+      },
+      "stats": {
+        "title": "Statistika",
+        "views": "Ukupno Pregleda",
+        "spent": "Ukupno Potrošeno",
+        "creators": "Ukupno Kreatora"
+      }
+    },
+    "competition": {
+      "title": "Natjecanje",
+      "prize": "Nagrada",
+      "prizePool": "Nagradni Fond",
+      "standings": "Poredak",
+      "noSubmissions": "Još nema prijava za natjecanje",
+      "prizes": {
+        "first": "1. Mjesto",
+        "second": "2. Mjesto",
+        "third": "3. Mjesto"
+      }
+    }
+  },
+  "submissions": {
+    "title": "Prijave",
+    "yours": "Vaša prijava",
+    "creator": "Kreator",
+    "video": "Video",
+    "new": "Pošalji Novi Video",
+    "noSubmissions": "Nema prijava",
+    "search": "Pretraži prijave...",
+    "filter": "Filtriraj po statusu",
+    "platform": "Odaberi Platformu",
+    "videoUrl": "Unesi URL videa",
+    "status": {
+      "all": "Svi Statusi",
+      "pending": "Na čekanju",
+      "approved": "Odobreno",
+      "rejected": "Odbijeno"
+    },
+    "details": {
+      "views": "Pregledi",
+      "errors": {
+        "fillAllFields": "Molimo popunite sva polja",
+        "invalidUrl": "Molimo unesite valjanu URL adresu",
+        "invalidData": "Neispravni podaci kampanje ili korisnika",
+        "submissionFailed": "Greška pri slanju prijave"
+      },
+      "earnings": "Zarada",
+      "submittedOn": "Poslano"
+    }
+  }
+}

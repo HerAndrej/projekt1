@@ -1,0 +1,131 @@
+{
+  "common": {
+    "save": "Save Changes",
+    "createdOn": "Created on",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "back": "Back",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "view": "View",
+    "export": "Export Data",
+    "status": {
+      "active": "Active",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Create Account",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "accountType": "Account Type",
+    "creator": "Creator",
+    "admin": "Admin",
+    "alreadyHaveAccount": "Already have an account? Sign in",
+    "noAccount": "Don't have an account? Create one",
+    "demoCredentials": {
+      "title": "Demo credentials:",
+      "admin": "Admin: admin@example.com / password",
+      "creator": "Creator: creator@example.com / password"
+    }
+  },
+  "profile": {
+    "settings": "Profile Settings",
+    "description": "Manage your profile information and account settings",
+    "language": "Language",
+    "languages": {
+      "en": "English",
+      "sr": "Serbian",
+      "hr": "Croatian"
+    },
+    "displayName": "Display Name",
+    "socialLinks": "Social Media Links",
+    "changePassword": "Change Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "passwordMismatch": "Passwords do not match",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Failed to update profile"
+  },
+  "campaigns": {
+    "title": "Campaigns",
+    "details": {
+      "budget": {
+        "label": "Budget"
+      }
+    },
+    "new": "Create New Campaign",
+    "search": "Search campaigns...",
+    "noCampaigns": "No campaigns found",
+    "tryAdjustSearch": "Try adjusting your search term",
+    "createFirst": "Create your first campaign to get started",
+    "details": {
+      "title": "Campaign Details",
+      "description": "Description",
+      "requirements": "Requirements",
+      "files": "Campaign Files",
+      "budget": {
+        "title": "Budget",
+        "total": "Total Budget",
+        "spent": "Spent Budget",
+        "remaining": "Remaining Budget",
+        "perView": "Earnings per 3k Views"
+      },
+      "stats": {
+        "title": "Statistics",
+        "views": "Total Views",
+        "spent": "Total Spent",
+        "creators": "Total Creators"
+      }
+    },
+    "competition": {
+      "title": "Competition",
+      "prize": "Prize",
+      "prizePool": "Prize Pool",
+      "standings": "Competition Standings",
+      "noSubmissions": "No submissions in the competition yet",
+      "prizes": {
+        "first": "1st Place",
+        "second": "2nd Place",
+        "third": "3rd Place"
+      }
+    }
+  },
+  "submissions": {
+    "title": "Submissions",
+    "yours": "Your Submission",
+    "creator": "Creator",
+    "video": "Video",
+    "new": "Submit New Video",
+    "noSubmissions": "No submissions yet",
+    "search": "Search submissions...",
+    "filter": "Filter by status",
+    "platform": "Select Platform",
+    "videoUrl": "Enter video URL",
+    "status": {
+      "all": "All Status",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "details": {
+      "views": "Views",
+      "errors": {
+        "fillAllFields": "Please fill in all fields",
+        "invalidUrl": "Please enter a valid URL",
+        "invalidData": "Invalid campaign or user data",
+        "submissionFailed": "Failed to submit video"
+      },
+      "earnings": "Earnings",
+      "submittedOn": "Submitted on"
+    }
+  }
+}
