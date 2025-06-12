@@ -11,7 +11,7 @@ export type Campaign = {
   updated_at: string;
   status: 'active' | 'completed' | 'cancelled';
   content_type: 'ugc' | 'clipping';
-  earnings_per_3k_views: number;
+  earnings_per_1k_views: number; // Changed from earnings_per_3k_views
   total_budget: number;
   spent_budget: number;
   user_id: string;
@@ -20,6 +20,7 @@ export type Campaign = {
   thumbnail_url?: string;
   has_competition: boolean;
   prizes?: any;
+  allowed_networks: string[]; // New field
 };
 
 export type Submission = {

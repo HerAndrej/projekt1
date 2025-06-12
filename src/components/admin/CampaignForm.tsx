@@ -1,14 +1,14 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCampaigns } from '../../contexts/CampaignContext';
-import { Link, Plus, X, Upload, Trophy } from 'lucide-react';
+import { Link, Plus, X, Upload, Trophy, Instagram, Youtube } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
-import { useAuth } from '../../contexts/AuthContext'; // Add this import
+import { useAuth } from '../../contexts/AuthContext';
 
 const CampaignForm = () => {
   const navigate = useNavigate();
   const { createCampaign } = useCampaigns();
-  const { user } = useAuth(); // Add this line to get the current user
+  const { user } = useAuth();
   const logoInputRef = useRef<HTMLInputElement>(null);
   const thumbnailInputRef = useRef<HTMLInputElement>(null);
   
@@ -16,7 +16,7 @@ const CampaignForm = () => {
   const [description, setDescription] = useState('');
   const [requirements, setRequirements] = useState('');
   const [contentType, setContentType] = useState<'ugc' | 'clipping'>('ugc');
-  const [earningsPer3kViews, setEarningsPer3kViews] = useState('');
+  const [earningsPer1kViews, setEarningsPer1kViews] = useState(''); // Changed from 3k to 1k
   const [totalBudget, setTotalBudget] = useState('');
   const [fileLinks, setFileLinks] = useState(['']);
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -26,6 +26,7 @@ const CampaignForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [hasCompetition, setHasCompetition] = useState(false);
+  const [allowedNetworks, setAllowedNetworks] = useState<string[]>(['instagram', 'tiktok', 'youtube']); // New state
   const [prizes, setPrizes] = useState({
     first: '',
     second: '',
@@ -107,6 +108,14 @@ const CampaignForm = () => {
     }
   };
 
+  const handleNetworkToggle = (network: string) => {
+    setAllowedNetworks(prev => 
+      prev.includes(network) 
+        ? prev.filter(n => n !== network)
+        : [...prev, network]
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -117,8 +126,13 @@ const CampaignForm = () => {
     }
     
     if (!title.trim() || !description.trim() || !requirements.trim() || 
-        !earningsPer3kViews || !totalBudget) {
+        !earningsPer1kViews || !totalBudget) {
       setError('All required fields must be filled');
+      return;
+    }
+
+    if (allowedNetworks.length === 0) {
+      setError('Please select at least one allowed network');
       return;
     }
 
@@ -156,14 +170,15 @@ const CampaignForm = () => {
         description,
         requirements,
         content_type: contentType,
-        earnings_per_3k_views: Number(earningsPer3kViews),
+        earnings_per_1k_views: Number(earningsPer1kViews), // Changed from 3k to 1k
         total_budget: Number(totalBudget),
         file_links: validFileLinks,
         logo_url: logoUrl,
         thumbnail_url: thumbnailUrl,
         has_competition: hasCompetition,
         prizes: hasCompetition ? prizes : null,
-        user_id: user.id // Add the user_id here
+        allowed_networks: allowedNetworks, // New field
+        user_id: user.id
       });
       
       navigate('/admin/campaigns');
@@ -195,6 +210,32 @@ const CampaignForm = () => {
       ...prev,
       [place]: value
     }));
+  };
+
+  const getNetworkIcon = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return <Instagram size={20} />;
+      case 'youtube':
+        return <Youtube size={20} />;
+      case 'tiktok':
+        return <div className="w-5 h-5 bg-black rounded-sm flex items-center justify-center text-white text-xs font-bold">T</div>;
+      default:
+        return null;
+    }
+  };
+
+  const getNetworkColor = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return 'from-purple-500 to-pink-500';
+      case 'youtube':
+        return 'from-red-500 to-red-600';
+      case 'tiktok':
+        return 'from-black to-gray-800';
+      default:
+        return 'from-gray-500 to-gray-600';
+    }
   };
   
   return (
@@ -345,6 +386,54 @@ const CampaignForm = () => {
               placeholder="List specific requirements for creators (e.g., follower count, content type, deadlines)"
             />
           </div>
+
+          {/* Allowed Networks Section */}
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-medium mb-2">
+              Dozvoljene Mreže
+            </label>
+            <p className="text-sm text-gray-500 mb-3">
+              Izaberite na kojim društvenim mrežama kreatori mogu da objavljuju sadržaj
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                { id: 'instagram', name: 'Instagram', color: 'from-purple-500 to-pink-500' },
+                { id: 'tiktok', name: 'TikTok', color: 'from-black to-gray-800' },
+                { id: 'youtube', name: 'YouTube', color: 'from-red-500 to-red-600' }
+              ].map((network) => (
+                <div
+                  key={network.id}
+                  onClick={() => handleNetworkToggle(network.id)}
+                  className={`relative cursor-pointer rounded-lg p-4 border-2 transition-all ${
+                    allowedNetworks.includes(network.id)
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-300 hover:border-gray-400'
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-r ${network.color} flex items-center justify-center text-white`}>
+                      {getNetworkIcon(network.id)}
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-800">{network.name}</h3>
+                      <p className="text-sm text-gray-500">
+                        {network.id === 'instagram' && 'Stories, Reels, Posts'}
+                        {network.id === 'tiktok' && 'Short Videos'}
+                        {network.id === 'youtube' && 'Videos, Shorts'}
+                      </p>
+                    </div>
+                  </div>
+                  {allowedNetworks.includes(network.id) && (
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
@@ -363,18 +452,18 @@ const CampaignForm = () => {
             </div>
             
             <div>
-              <label htmlFor="earningsPer3kViews" className="block text-gray-700 text-sm font-medium mb-2">
-                Earnings per 3k Views ($)
+              <label htmlFor="earningsPer1kViews" className="block text-gray-700 text-sm font-medium mb-2">
+                Earnings per 1k Views ($) {/* Changed from 3k to 1k */}
               </label>
               <input
-                id="earningsPer3kViews"
+                id="earningsPer1kViews"
                 type="number"
                 min="0"
                 step="0.01"
-                value={earningsPer3kViews}
-                onChange={(e) => setEarningsPer3kViews(e.target.value)}
+                value={earningsPer1kViews}
+                onChange={(e) => setEarningsPer1kViews(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                placeholder="e.g., 50"
+                placeholder="e.g., 15"
               />
             </div>
           </div>
