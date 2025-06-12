@@ -15,17 +15,17 @@ const CreatorSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: CreatorSidebarPro
 
   const navItems = [
     {
-      name: 'Available Campaigns',
+      name: 'Dostupne Kampanje',
       path: '/creator/available',
       icon: <ListChecks size={20} />,
     },
     {
-      name: 'My Campaigns',
+      name: 'Moje Kampanje',
       path: '/creator/my-campaigns',
       icon: <Bookmark size={20} />,
     },
     {
-      name: 'Earnings & Statistics',
+      name: 'Zarada i Statistike',
       path: '/creator/earnings',
       icon: <BarChart2 size={20} />,
     },
@@ -63,7 +63,7 @@ const CreatorSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: CreatorSidebarPro
               />
             </Link>
             <p className="text-gray-800 dark:text-white text-sm uppercase tracking-wider text-center">
-              Creator Dashboard
+              Kreator Panel
             </p>
           </div>
           <nav className="flex-1 space-y-2">
@@ -99,7 +99,7 @@ const CreatorSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: CreatorSidebarPro
               />
             </Link>
             <p className="text-gray-800 dark:text-white text-sm font-medium uppercase tracking-wider text-center">
-              Creator Dashboard
+              Kreator Panel
             </p>
           </div>
           <nav className="mt-5 flex-1 px-4 space-y-2">

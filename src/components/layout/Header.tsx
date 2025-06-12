@@ -46,7 +46,7 @@ const Header = () => {
             <div className="flex items-center space-x-4">
               <span className="text-sm">{user.name}</span>
               <span className="bg-[#2b7de9] text-white text-xs px-2 py-1 rounded-full uppercase">
-                {user.role}
+                {user.role === 'admin' ? 'Admin' : 'Kreator'}
               </span>
               <Link
                 to={`${isDashboardLink}/profile`}
@@ -83,12 +83,12 @@ const Header = () => {
                 {theme === 'light' ? (
                   <>
                     <Moon size={18} className="mr-2" />
-                    Dark Mode
+                    Tamni Režim
                   </>
                 ) : (
                   <>
                     <Sun size={18} className="mr-2" />
-                    Light Mode
+                    Svetli Režim
                   </>
                 )}
               </button>
@@ -96,7 +96,7 @@ const Header = () => {
                 <div className="flex items-center">
                   <span className="mr-2">{user.name}</span>
                   <span className="bg-[#2b7de9] text-white text-xs px-2 py-1 rounded-full uppercase">
-                    {user.role}
+                    {user.role === 'admin' ? 'Admin' : 'Kreator'}
                   </span>
                 </div>
               </div>
@@ -106,14 +106,14 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Settings size={18} className="mr-2" />
-                Profile Settings
+                Podešavanja Profila
               </Link>
               <button
                 onClick={handleLogout}
                 className="flex items-center text-gray-600 hover:text-gray-800 transition-colors"
               >
                 <LogOut size={18} className="mr-2" />
-                Logout
+                Odjavi se
               </button>
             </div>
           </div>

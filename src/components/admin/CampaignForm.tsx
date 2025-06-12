@@ -16,7 +16,7 @@ const CampaignForm = () => {
   const [description, setDescription] = useState('');
   const [requirements, setRequirements] = useState('');
   const [contentType, setContentType] = useState<'ugc' | 'clipping'>('ugc');
-  const [earningsPer1kViews, setEarningsPer1kViews] = useState(''); // Changed from 3k to 1k
+  const [earningsPer1kViews, setEarningsPer1kViews] = useState('');
   const [totalBudget, setTotalBudget] = useState('');
   const [fileLinks, setFileLinks] = useState(['']);
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -26,7 +26,7 @@ const CampaignForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [hasCompetition, setHasCompetition] = useState(false);
-  const [allowedNetworks, setAllowedNetworks] = useState<string[]>(['instagram', 'tiktok', 'youtube']); // New state
+  const [allowedNetworks, setAllowedNetworks] = useState<string[]>(['instagram', 'tiktok', 'youtube']);
   const [prizes, setPrizes] = useState({
     first: '',
     second: '',
@@ -39,7 +39,7 @@ const CampaignForm = () => {
     const file = e.target.files?.[0];
     if (file) {
       if (!file.type.startsWith('image/')) {
-        setError('Please select an image file');
+        setError('Molimo izaberite sliku');
         return;
       }
       setLogoFile(file);
@@ -55,7 +55,7 @@ const CampaignForm = () => {
     const file = e.target.files?.[0];
     if (file) {
       if (!file.type.startsWith('image/')) {
-        setError('Please select an image file');
+        setError('Molimo izaberite sliku');
         return;
       }
       setThumbnailFile(file);
@@ -72,11 +72,11 @@ const CampaignForm = () => {
       if (!file) return null;
 
       if (file.size > 5 * 1024 * 1024) {
-        throw new Error('File size must be less than 5MB');
+        throw new Error('Veličina fajla mora biti manja od 5MB');
       }
 
       if (!['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(file.type)) {
-        throw new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP images are allowed.');
+        throw new Error('Neispravna vrsta fajla. Dozvoljene su samo JPEG, PNG, GIF i WebP slike.');
       }
 
       const fileExt = file.name.split('.').pop();
@@ -93,7 +93,7 @@ const CampaignForm = () => {
 
       if (uploadError) {
         console.error('Storage upload error:', uploadError);
-        throw new Error(`Upload failed: ${uploadError.message}`);
+        throw new Error(`Neuspešno otpremanje: ${uploadError.message}`);
       }
 
       const { data: publicData } = supabase
@@ -108,36 +108,28 @@ const CampaignForm = () => {
     }
   };
 
-  const handleNetworkToggle = (network: string) => {
-    setAllowedNetworks(prev => 
-      prev.includes(network) 
-        ? prev.filter(n => n !== network)
-        : [...prev, network]
-    );
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     
     if (!user) {
-      setError('You must be logged in to create a campaign');
+      setError('Morate biti ulogovani da biste kreirali kampanju');
       return;
     }
     
     if (!title.trim() || !description.trim() || !requirements.trim() || 
         !earningsPer1kViews || !totalBudget) {
-      setError('All required fields must be filled');
+      setError('Sva obavezna polja moraju biti popunjena');
       return;
     }
 
     if (allowedNetworks.length === 0) {
-      setError('Please select at least one allowed network');
+      setError('Molimo izaberite najmanje jednu dozvoljenu mrežu');
       return;
     }
 
     if (hasCompetition && (!prizes.first || !prizes.second || !prizes.third || !prizes.fourth || !prizes.fifth)) {
-      setError('All prize amounts must be filled for competition');
+      setError('Svi iznosi nagrada moraju biti popunjeni za takmičenje');
       return;
     }
     
@@ -147,7 +139,7 @@ const CampaignForm = () => {
     };
     
     if (validFileLinks.length > 0 && !validFileLinks.every(isValidGoogleDriveLink)) {
-      setError('Please provide valid Google Drive links only');
+      setError('Molimo unesite samo validne Google Drive linkove');
       return;
     }
     
@@ -170,21 +162,21 @@ const CampaignForm = () => {
         description,
         requirements,
         content_type: contentType,
-        earnings_per_1k_views: Number(earningsPer1kViews), // Changed from 3k to 1k
+        earnings_per_1k_views: Number(earningsPer1kViews),
         total_budget: Number(totalBudget),
         file_links: validFileLinks,
         logo_url: logoUrl,
         thumbnail_url: thumbnailUrl,
         has_competition: hasCompetition,
         prizes: hasCompetition ? prizes : null,
-        allowed_networks: allowedNetworks, // New field
+        allowed_networks: allowedNetworks,
         user_id: user.id
       });
       
       navigate('/admin/campaigns');
     } catch (err) {
       console.error('Campaign creation error:', err);
-      setError(err instanceof Error ? err.message : 'Failed to create campaign');
+      setError(err instanceof Error ? err.message : 'Neuspešno kreiranje kampanje');
       setIsSubmitting(false);
     }
   };
@@ -210,6 +202,14 @@ const CampaignForm = () => {
       ...prev,
       [place]: value
     }));
+  };
+
+  const handleNetworkToggle = (network: string) => {
+    setAllowedNetworks(prev => 
+      prev.includes(network) 
+        ? prev.filter(n => n !== network)
+        : [...prev, network]
+    );
   };
 
   const getNetworkIcon = (network: string) => {
@@ -240,7 +240,7 @@ const CampaignForm = () => {
   
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Create New Campaign</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">Kreiraj Novu Kampanju</h1>
       
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -254,7 +254,7 @@ const CampaignForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-gray-700 text-sm font-medium mb-2">
-                Campaign Logo
+                Logo Kampanje
               </label>
               <div className="space-y-2">
                 <div 
@@ -272,7 +272,7 @@ const CampaignForm = () => {
                     <div className="relative">
                       <img
                         src={logoPreview}
-                        alt="Logo Preview"
+                        alt="Pregled Loga"
                         className="h-32 w-32 object-contain mx-auto"
                       />
                       <button
@@ -290,8 +290,8 @@ const CampaignForm = () => {
                   ) : (
                     <div className="text-center">
                       <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                      <p className="mt-2 text-sm text-gray-500">Click to upload logo</p>
-                      <p className="text-xs text-gray-400">PNG, JPG, GIF up to 5MB</p>
+                      <p className="mt-2 text-sm text-gray-500">Kliknite da otpremite logo</p>
+                      <p className="text-xs text-gray-400">PNG, JPG, GIF do 5MB</p>
                     </div>
                   )}
                 </div>
@@ -300,7 +300,7 @@ const CampaignForm = () => {
 
             <div>
               <label className="block text-gray-700 text-sm font-medium mb-2">
-                Campaign Thumbnail
+                Slika Kampanje
               </label>
               <div className="space-y-2">
                 <div 
@@ -318,7 +318,7 @@ const CampaignForm = () => {
                     <div className="relative">
                       <img
                         src={thumbnailPreview}
-                        alt="Thumbnail Preview"
+                        alt="Pregled Slike"
                         className="h-32 w-full object-cover"
                       />
                       <button
@@ -336,8 +336,8 @@ const CampaignForm = () => {
                   ) : (
                     <div className="text-center">
                       <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                      <p className="mt-2 text-sm text-gray-500">Click to upload thumbnail</p>
-                      <p className="text-xs text-gray-400">PNG, JPG, GIF up to 5MB</p>
+                      <p className="mt-2 text-sm text-gray-500">Kliknite da otpremite sliku</p>
+                      <p className="text-xs text-gray-400">PNG, JPG, GIF do 5MB</p>
                     </div>
                   )}
                 </div>
@@ -347,7 +347,7 @@ const CampaignForm = () => {
 
           <div className="mb-4">
             <label htmlFor="title" className="block text-gray-700 text-sm font-medium mb-2">
-              Campaign Title
+              Naziv Kampanje
             </label>
             <input
               id="title"
@@ -355,13 +355,13 @@ const CampaignForm = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-              placeholder="e.g., Summer Product Launch"
+              placeholder="npr. Letnja Promocija Proizvoda"
             />
           </div>
           
           <div className="mb-4">
             <label htmlFor="description" className="block text-gray-700 text-sm font-medium mb-2">
-              Campaign Description
+              Opis Kampanje
             </label>
             <textarea
               id="description"
@@ -369,13 +369,13 @@ const CampaignForm = () => {
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-              placeholder="Describe the campaign goals and what content creators need to know"
+              placeholder="Opišite ciljeve kampanje i šta kreatori treba da znaju"
             />
           </div>
           
           <div className="mb-4">
             <label htmlFor="requirements" className="block text-gray-700 text-sm font-medium mb-2">
-              Requirements
+              Zahtevi
             </label>
             <textarea
               id="requirements"
@@ -383,7 +383,7 @@ const CampaignForm = () => {
               onChange={(e) => setRequirements(e.target.value)}
               rows={4}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-              placeholder="List specific requirements for creators (e.g., follower count, content type, deadlines)"
+              placeholder="Navedite specifične zahteve za kreatore (npr. broj pratilaca, tip sadržaja, rokovi)"
             />
           </div>
 
@@ -417,9 +417,9 @@ const CampaignForm = () => {
                     <div>
                       <h3 className="font-medium text-gray-800">{network.name}</h3>
                       <p className="text-sm text-gray-500">
-                        {network.id === 'instagram' && 'Stories, Reels, Posts'}
-                        {network.id === 'tiktok' && 'Short Videos'}
-                        {network.id === 'youtube' && 'Videos, Shorts'}
+                        {network.id === 'instagram' && 'Stories, Reels, Objave'}
+                        {network.id === 'tiktok' && 'Kratki Videi'}
+                        {network.id === 'youtube' && 'Videi, Shorts'}
                       </p>
                     </div>
                   </div>
@@ -438,7 +438,7 @@ const CampaignForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <label htmlFor="contentType" className="block text-gray-700 text-sm font-medium mb-2">
-                Content Type
+                Tip Sadržaja
               </label>
               <select
                 id="contentType"
@@ -446,14 +446,14 @@ const CampaignForm = () => {
                 onChange={(e) => setContentType(e.target.value as 'ugc' | 'clipping')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
               >
-                <option value="ugc">UGC (User Generated Content)</option>
-                <option value="clipping">Clipping</option>
+                <option value="ugc">UGC (Korisnički Generisan Sadržaj)</option>
+                <option value="clipping">Klipovanje</option>
               </select>
             </div>
             
             <div>
               <label htmlFor="earningsPer1kViews" className="block text-gray-700 text-sm font-medium mb-2">
-                Earnings per 1k Views ($) {/* Changed from 3k to 1k */}
+                Zarada po 1k Pregleda ($)
               </label>
               <input
                 id="earningsPer1kViews"
@@ -463,14 +463,14 @@ const CampaignForm = () => {
                 value={earningsPer1kViews}
                 onChange={(e) => setEarningsPer1kViews(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                placeholder="e.g., 15"
+                placeholder="npr. 15"
               />
             </div>
           </div>
 
           <div className="mb-6">
             <label htmlFor="totalBudget" className="block text-gray-700 text-sm font-medium mb-2">
-              Total Campaign Budget ($)
+              Ukupan Budžet Kampanje ($)
             </label>
             <input
               id="totalBudget"
@@ -480,7 +480,7 @@ const CampaignForm = () => {
               value={totalBudget}
               onChange={(e) => setTotalBudget(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-              placeholder="e.g., 10000"
+              placeholder="npr. 10000"
             />
           </div>
 
@@ -496,18 +496,18 @@ const CampaignForm = () => {
               />
               <label htmlFor="hasCompetition" className="flex items-center text-gray-700 font-medium">
                 <Trophy size={20} className="mr-2 text-yellow-500" />
-                Enable Competition with Prizes
+                Omogući Takmičenje sa Nagradama
               </label>
             </div>
 
             {hasCompetition && (
               <div className="bg-yellow-50 rounded-lg p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Competition Prizes</h3>
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Nagrade za Takmičenje</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      🥇 1st Place Prize ($)
+                      🥇 1. Mesto ($)
                     </label>
                     <input
                       type="number"
@@ -516,13 +516,13 @@ const CampaignForm = () => {
                       value={prizes.first}
                       onChange={(e) => handlePrizeChange('first', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                      placeholder="e.g., 1000"
+                      placeholder="npr. 1000"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      🥈 2nd Place Prize ($)
+                      🥈 2. Mesto ($)
                     </label>
                     <input
                       type="number"
@@ -531,13 +531,13 @@ const CampaignForm = () => {
                       value={prizes.second}
                       onChange={(e) => handlePrizeChange('second', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                      placeholder="e.g., 500"
+                      placeholder="npr. 500"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      🥉 3rd Place Prize ($)
+                      🥉 3. Mesto ($)
                     </label>
                     <input
                       type="number"
@@ -546,13 +546,13 @@ const CampaignForm = () => {
                       value={prizes.third}
                       onChange={(e) => handlePrizeChange('third', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                      placeholder="e.g., 250"
+                      placeholder="npr. 250"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      4th Place Prize ($)
+                      4. Mesto ($)
                     </label>
                     <input
                       type="number"
@@ -561,13 +561,13 @@ const CampaignForm = () => {
                       value={prizes.fourth}
                       onChange={(e) => handlePrizeChange('fourth', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                      placeholder="e.g., 100"
+                      placeholder="npr. 100"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      5th Place Prize ($)
+                      5. Mesto ($)
                     </label>
                     <input
                       type="number"
@@ -576,7 +576,7 @@ const CampaignForm = () => {
                       value={prizes.fifth}
                       onChange={(e) => handlePrizeChange('fifth', e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                      placeholder="e.g., 50"
+                      placeholder="npr. 50"
                     />
                   </div>
                 </div>
@@ -587,7 +587,7 @@ const CampaignForm = () => {
           {/* File links section */}
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-medium mb-2">
-              Google Drive File Links
+              Google Drive Linkovi Fajlova
             </label>
             <div className="space-y-2">
               {fileLinks.map((link, index) => (
@@ -600,7 +600,7 @@ const CampaignForm = () => {
                       type="text"
                       value={link}
                       onChange={(e) => handleFileLinkChange(index, e.target.value)}
-                      placeholder="Paste Google Drive link here"
+                      placeholder="Nalepite Google Drive link ovde"
                       className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
                     />
                   </div>
@@ -621,11 +621,11 @@ const CampaignForm = () => {
                 className="flex items-center text-[#2b7de9] hover:text-[#2b7de9]/80 mt-2"
               >
                 <Plus size={16} className="mr-1" />
-                Add another file link
+                Dodaj još jedan link fajla
               </button>
             </div>
             <p className="mt-2 text-sm text-gray-500">
-              Add Google Drive links to campaign assets and materials
+              Dodajte Google Drive linkove za materijale i resurse kampanje
             </p>
           </div>
           
@@ -635,7 +635,7 @@ const CampaignForm = () => {
               onClick={() => navigate('/admin/campaigns')}
               className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
             >
-              Cancel
+              Otkaži
             </button>
             <button
               type="submit"
@@ -644,7 +644,7 @@ const CampaignForm = () => {
                 isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
               }`}
             >
-              {isSubmitting ? 'Creating...' : 'Create Campaign'}
+              {isSubmitting ? 'Kreiranje...' : 'Kreiraj Kampanju'}
             </button>
           </div>
         </form>

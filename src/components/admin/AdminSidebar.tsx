@@ -15,17 +15,17 @@ const AdminSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: AdminSidebarProps) 
 
   const navItems = [
     {
-      name: 'Campaigns',
+      name: 'Kampanje',
       path: '/admin/campaigns',
       icon: <LayoutDashboard size={20} />,
     },
     {
-      name: 'New Campaign',
+      name: 'Nova Kampanja',
       path: '/admin/campaigns/new',
       icon: <PlusCircle size={20} />,
     },
     {
-      name: 'Submissions',
+      name: 'Prijave',
       path: '/admin/submissions',
       icon: <ListChecks size={20} />,
     },
@@ -63,7 +63,7 @@ const AdminSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: AdminSidebarProps) 
               />
             </Link>
             <p className="text-white text-sm uppercase tracking-wider text-center">
-              Admin Dashboard
+              Admin Panel
             </p>
           </div>
           <nav className="flex-1 space-y-2">
@@ -99,7 +99,7 @@ const AdminSidebar = ({ mobileMenuOpen, setMobileMenuOpen }: AdminSidebarProps) 
               />
             </Link>
             <p className="text-white text-sm font-medium uppercase tracking-wider text-center">
-              Admin Dashboard
+              Admin Panel
             </p>
           </div>
           <nav className="mt-5 flex-1 px-4 space-y-2">

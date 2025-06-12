@@ -34,7 +34,7 @@ const SubmissionsList = () => {
           const creatorMap: Record<string, { name: string; email: string }> = {};
           data.forEach(user => {
             creatorMap[user.id] = {
-              name: user.raw_user_meta_data?.name || 'Unknown User',
+              name: user.raw_user_meta_data?.name || 'Nepoznat Korisnik',
               email: user.email
             };
           });
@@ -42,7 +42,7 @@ const SubmissionsList = () => {
         }
       } catch (err) {
         console.error('Error loading data:', err);
-        setError('Failed to load data');
+        setError('Neuspešno učitavanje podataka');
       } finally {
         setIsLoading(false);
       }
@@ -58,7 +58,7 @@ const SubmissionsList = () => {
 
   // Get creator name for display
   const getCreatorName = (creatorId: string) => {
-    return creators[creatorId]?.name || creators[creatorId]?.email || 'Unknown Creator';
+    return creators[creatorId]?.name || creators[creatorId]?.email || 'Nepoznat Kreator';
   };
   
   // Filter submissions based on search term and status
@@ -83,7 +83,7 @@ const SubmissionsList = () => {
       await updateSubmission(submissionId, { status: newStatus });
     } catch (err) {
       console.error('Error updating submission status:', err);
-      setError('Failed to update submission status');
+      setError('Neuspešno ažuriranje statusa prijave');
     }
   };
 
@@ -106,7 +106,7 @@ const SubmissionsList = () => {
   return (
     <div>
       <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'} mb-6`}>
-        Creator Submissions
+        Prijave Kreatora
       </h1>
       
       <div className="mb-6 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
@@ -116,7 +116,7 @@ const SubmissionsList = () => {
           </div>
           <input
             type="text"
-            placeholder="Search submissions..."
+            placeholder="Pretraži prijave..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className={`pl-10 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9] ${
@@ -140,10 +140,10 @@ const SubmissionsList = () => {
                 : 'border border-gray-300'
             }`}
           >
-            <option value="all">All Status</option>
-            <option value="pending">Pending</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
+            <option value="all">Svi Statusi</option>
+            <option value="pending">Na Čekanju</option>
+            <option value="approved">Odobreno</option>
+            <option value="rejected">Odbijeno</option>
           </select>
         </div>
       </div>
@@ -151,9 +151,9 @@ const SubmissionsList = () => {
       {filteredSubmissions.length === 0 ? (
         <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-md p-6 text-center`}>
           <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-            No submissions found 
-            {searchTerm && ' matching your search criteria'}
-            {statusFilter !== 'all' && ` with status "${statusFilter}"`}.
+            Nema pronađenih prijava 
+            {searchTerm && ' koje odgovaraju vašoj pretrazi'}
+            {statusFilter !== 'all' && ` sa statusom "${statusFilter}"`}.
           </p>
         </div>
       ) : (
@@ -163,22 +163,22 @@ const SubmissionsList = () => {
               <thead className={`${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}>
                 <tr>
                   <th scope="col" className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Campaign
+                    Kampanja
                   </th>
                   <th scope="col" className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Creator
+                    Kreator
                   </th>
                   <th scope="col" className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Submitted Date
+                    Datum Prijave
                   </th>
                   <th scope="col" className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Links
+                    Linkovi
                   </th>
                   <th scope="col" className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
                     Status
                   </th>
                   <th scope="col" className={`px-6 py-3 text-right text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
-                    Actions
+                    Akcije
                   </th>
                 </tr>
               </thead>
@@ -192,7 +192,7 @@ const SubmissionsList = () => {
                           to={`/admin/campaigns/${submission.campaign_id}`}
                           className="text-[#2b7de9] hover:underline"
                         >
-                          {campaign?.title || 'Unknown Campaign'}
+                          {campaign?.title || 'Nepoznata Kampanja'}
                         </Link>
                       </td>
                       <td className={`px-6 py-4 whitespace-nowrap ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
@@ -209,11 +209,11 @@ const SubmissionsList = () => {
                             rel="noopener noreferrer"
                             className="text-[#2b7de9] hover:underline text-sm flex items-center"
                           >
-                            Social Profile
+                            Društveni Profil
                             <ExternalLink size={14} className="ml-1" />
                           </a>
                           <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} mt-1`}>
-                            {submission.video_links.length} video link{submission.video_links.length !== 1 ? 's' : ''}
+                            {submission.video_links.length} video link{submission.video_links.length !== 1 ? 'ova' : ''}
                           </span>
                         </div>
                       </td>
@@ -225,7 +225,8 @@ const SubmissionsList = () => {
                             ? 'bg-green-100 text-green-800'
                             : 'bg-red-100 text-red-800'
                         }`}>
-                          {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
+                          {submission.status === 'pending' ? 'Na Čekanju' :
+                           submission.status === 'approved' ? 'Odobreno' : 'Odbijeno'}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -235,13 +236,13 @@ const SubmissionsList = () => {
                               onClick={() => handleStatusChange(submission.id, 'approved')}
                               className="text-green-600 hover:text-green-900"
                             >
-                              Approve
+                              Odobri
                             </button>
                             <button
                               onClick={() => handleStatusChange(submission.id, 'rejected')}
                               className="text-red-600 hover:text-red-900"
                             >
-                              Reject
+                              Odbij
                             </button>
                           </div>
                         )}
@@ -250,7 +251,7 @@ const SubmissionsList = () => {
                             onClick={() => handleStatusChange(submission.id, 'pending')}
                             className={`${theme === 'dark' ? 'text-gray-400 hover:text-gray-300' : 'text-gray-600 hover:text-gray-900'}`}
                           >
-                            Reset
+                            Resetuj
                           </button>
                         )}
                       </td>

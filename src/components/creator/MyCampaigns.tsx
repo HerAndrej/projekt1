@@ -18,7 +18,7 @@ const MyCampaigns = () => {
         setIsLoading(true);
         await getCampaigns();
       } catch (err) {
-        setError('Failed to load campaigns');
+        setError('Neuspešno učitavanje kampanja');
         console.error('Error loading campaigns:', err);
       } finally {
         setIsLoading(false);
@@ -67,50 +67,50 @@ const MyCampaigns = () => {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-              Total Earnings
+              Ukupna Zarada
             </h3>
             <DollarSign className="text-green-500 dark:text-green-400" size={24} />
           </div>
           <p className="text-2xl font-bold text-green-600 dark:text-green-400">${totalEarnings}</p>
           <p className={`text-sm mt-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            From approved submissions
+            Od odobrenih prijava
           </p>
           <div className={`mt-2 text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-            Pending: ${totalPendingEarnings}
+            Na čekanju: ${totalPendingEarnings}
           </div>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-              Total Views
+              Ukupni Pregledi
             </h3>
             <Eye className="text-blue-500 dark:text-blue-400" size={24} />
           </div>
           <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{totalViews.toLocaleString()}</p>
           <p className={`text-sm mt-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            Across approved submissions
+            Kroz odobrene prijave
           </p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-              Submission Status
+              Status Prijava
             </h3>
             <BarChart className="text-indigo-500 dark:text-indigo-400" size={24} />
           </div>
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Approved:</span>
+              <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Odobreno:</span>
               <span className="font-semibold text-green-600 dark:text-green-400">{approvedSubmissions.length}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Pending:</span>
+              <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Na čekanju:</span>
               <span className="font-semibold text-yellow-600 dark:text-yellow-400">{pendingSubmissions.length}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Rejected:</span>
+              <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Odbijeno:</span>
               <span className="font-semibold text-red-600 dark:text-red-400">{rejectedSubmissions.length}</span>
             </div>
           </div>
@@ -119,7 +119,7 @@ const MyCampaigns = () => {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-              Competition Rank
+              Rang u Takmičenju
             </h3>
             <TrendingUp className="text-purple-500 dark:text-purple-400" size={24} />
           </div>
@@ -130,7 +130,7 @@ const MyCampaigns = () => {
                 .map(sub => (
                   <div key={sub.id} className="flex justify-between items-center">
                     <span className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Rank #{sub.competition_rank}:
+                      Rang #{sub.competition_rank}:
                     </span>
                     <span className="font-semibold text-green-600 dark:text-green-400">
                       ${sub.competition_prize}
@@ -140,7 +140,7 @@ const MyCampaigns = () => {
             </div>
           ) : (
             <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              No competition rankings yet
+              Još nema rangiranja u takmičenju
             </p>
           )}
         </div>
@@ -150,16 +150,16 @@ const MyCampaigns = () => {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-8 text-center">
           <AlertCircle size={48} className="mx-auto mb-4 text-gray-400 dark:text-gray-500" />
           <h3 className={`text-lg font-medium mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-            No submissions yet
+            Još nema prijava
           </h3>
           <p className={`mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            Start earning by submitting content for available campaigns.
+            Počnite da zarađujete slanjem sadržaja za dostupne kampanje.
           </p>
           <Link
             to="/creator/available"
             className="bg-[#2b7de9] hover:bg-[#2b7de9]/90 text-white px-4 py-2 rounded-md font-medium transition-colors"
           >
-            Browse Campaigns
+            Pregledaj Kampanje
           </Link>
         </div>
       ) : (
@@ -168,7 +168,7 @@ const MyCampaigns = () => {
           {approvedSubmissions.length > 0 && (
             <div>
               <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                Approved Submissions
+                Odobrene Prijave
               </h2>
               <div className="space-y-4">
                 {approvedSubmissions.map(submission => (
@@ -176,21 +176,21 @@ const MyCampaigns = () => {
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                          Submission #{submission.id.slice(0, 8)}
+                          Prijava #{submission.id.slice(0, 8)}
                         </h3>
                         <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Submitted on {new Date(submission.submitted_at).toLocaleDateString()}
+                          Poslato {new Date(submission.submitted_at).toLocaleDateString()}
                         </p>
                       </div>
                       <span className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm font-medium">
-                        Approved
+                        Odobreno
                       </span>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                       <div>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                          Views
+                          Pregledi
                         </p>
                         <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                           {submission.views.toLocaleString()}
@@ -198,7 +198,7 @@ const MyCampaigns = () => {
                       </div>
                       <div>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                          Earnings
+                          Zarada
                         </p>
                         <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                           ${submission.earnings}
@@ -214,7 +214,7 @@ const MyCampaigns = () => {
                         className="flex items-center text-[#2b7de9] hover:underline"
                       >
                         <ExternalLink size={16} className="mr-2" />
-                        View on Social Media
+                        Pogledaj na Društvenoj Mreži
                       </a>
                       {submission.video_links.map((link, index) => (
                         <a
@@ -225,7 +225,7 @@ const MyCampaigns = () => {
                           className="flex items-center text-[#2b7de9] hover:underline"
                         >
                           <ExternalLink size={16} className="mr-2" />
-                          View Video {index + 1}
+                          Pogledaj Video {index + 1}
                         </a>
                       ))}
                     </div>
@@ -239,7 +239,7 @@ const MyCampaigns = () => {
           {pendingSubmissions.length > 0 && (
             <div>
               <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                Pending Review
+                Na Čekanju Pregleda
               </h2>
               <div className="space-y-4">
                 {pendingSubmissions.map(submission => (
@@ -247,14 +247,14 @@ const MyCampaigns = () => {
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                          Submission #{submission.id.slice(0, 8)}
+                          Prijava #{submission.id.slice(0, 8)}
                         </h3>
                         <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Submitted on {new Date(submission.submitted_at).toLocaleDateString()}
+                          Poslato {new Date(submission.submitted_at).toLocaleDateString()}
                         </p>
                       </div>
                       <span className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full text-sm font-medium">
-                        Pending Review
+                        Na Čekanju Pregleda
                       </span>
                     </div>
 
@@ -266,7 +266,7 @@ const MyCampaigns = () => {
                         className="flex items-center text-[#2b7de9] hover:underline"
                       >
                         <ExternalLink size={16} className="mr-2" />
-                        View on Social Media
+                        Pogledaj na Društvenoj Mreži
                       </a>
                       {submission.video_links.map((link, index) => (
                         <a
@@ -277,7 +277,7 @@ const MyCampaigns = () => {
                           className="flex items-center text-[#2b7de9] hover:underline"
                         >
                           <ExternalLink size={16} className="mr-2" />
-                          View Video {index + 1}
+                          Pogledaj Video {index + 1}
                         </a>
                       ))}
                     </div>
@@ -291,7 +291,7 @@ const MyCampaigns = () => {
           {rejectedSubmissions.length > 0 && (
             <div>
               <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                Rejected Submissions
+                Odbijene Prijave
               </h2>
               <div className="space-y-4">
                 {rejectedSubmissions.map(submission => (
@@ -299,14 +299,14 @@ const MyCampaigns = () => {
                     <div className="flex justify-between items-start mb-4">
                       <div>
                         <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'}`}>
-                          Submission #{submission.id.slice(0, 8)}
+                          Prijava #{submission.id.slice(0, 8)}
                         </h3>
                         <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                          Submitted on {new Date(submission.submitted_at).toLocaleDateString()}
+                          Poslato {new Date(submission.submitted_at).toLocaleDateString()}
                         </p>
                       </div>
                       <span className="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-3 py-1 rounded-full text-sm font-medium">
-                        Rejected
+                        Odbijeno
                       </span>
                     </div>
 
@@ -318,7 +318,7 @@ const MyCampaigns = () => {
                         className="flex items-center text-[#2b7de9] hover:underline"
                       >
                         <ExternalLink size={16} className="mr-2" />
-                        View on Social Media
+                        Pogledaj na Društvenoj Mreži
                       </a>
                       {submission.video_links.map((link, index) => (
                         <a
@@ -329,7 +329,7 @@ const MyCampaigns = () => {
                           className="flex items-center text-[#2b7de9] hover:underline"
                         >
                           <ExternalLink size={16} className="mr-2" />
-                          View Video {index + 1}
+                          Pogledaj Video {index + 1}
                         </a>
                       ))}
                     </div>

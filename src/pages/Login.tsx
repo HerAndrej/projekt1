@@ -61,14 +61,14 @@ const Login = () => {
         if (signUpError) throw signUpError;
         
         setIsRegistering(false);
-        setError('Registration successful! Please log in.');
+        setError('Registracija uspešna! Molimo prijavite se.');
         setEmail('');
         setPassword('');
       } else {
         await login(email, password);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : 'Došlo je do greške');
     } finally {
       setIsLoading(false);
     }
@@ -104,7 +104,7 @@ const Login = () => {
                     }}
                     className="text-white hover:text-gray-200 transition-colors"
                   >
-                    Login
+                    Prijava
                   </button>
                   <button
                     onClick={() => {
@@ -113,7 +113,7 @@ const Login = () => {
                     }}
                     className="bg-[#ff9800] hover:bg-[#ff9800]/90 text-white px-4 py-2 rounded-md font-medium transition-colors"
                   >
-                    Get Started
+                    Počni Sada
                   </button>
                 </>
               )}
@@ -137,13 +137,13 @@ const Login = () => {
                 </h2>
               </div>
               <p className="text-gray-600 mt-2">
-                {isRegistering ? 'Create your account' : 'Sign in to access your dashboard'}
+                {isRegistering ? 'Kreirajte svoj nalog' : 'Prijavite se da pristupite vašem panelu'}
               </p>
             </div>
             
             {error && (
               <div className={`border px-4 py-3 rounded mb-4 ${
-                error.includes('successful') 
+                error.includes('uspešna') 
                   ? 'bg-green-100 border-green-400 text-green-700'
                   : 'bg-red-100 border-red-400 text-red-700'
               }`}>
@@ -155,7 +155,7 @@ const Login = () => {
               {isRegistering && (
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-gray-700 text-sm font-medium mb-2">
-                    Full Name
+                    Puno Ime
                   </label>
                   <input
                     id="name"
@@ -164,14 +164,14 @@ const Login = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                    placeholder="John Doe"
+                    placeholder="Marko Petrović"
                   />
                 </div>
               )}
               
               <div className="mb-4">
                 <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-2">
-                  Email Address
+                  Email Adresa
                 </label>
                 <input
                   id="email"
@@ -180,13 +180,13 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
-                  placeholder="you@example.com"
+                  placeholder="vas@email.com"
                 />
               </div>
               
               <div className="mb-4">
                 <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-2">
-                  Password
+                  Lozinka
                 </label>
                 <input
                   id="password"
@@ -202,7 +202,7 @@ const Login = () => {
               {isRegistering && (
                 <div className="mb-6">
                   <label htmlFor="role" className="block text-gray-700 text-sm font-medium mb-2">
-                    Account Type
+                    Tip Naloga
                   </label>
                   <select
                     id="role"
@@ -210,8 +210,8 @@ const Login = () => {
                     onChange={(e) => setRole(e.target.value as 'creator' | 'admin')}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
                   >
-                    <option value="creator">Creator</option>
-                    <option value="admin">Admin</option>
+                    <option value="creator">Kreator</option>
+                    <option value="admin">Administrator</option>
                   </select>
                 </div>
               )}
@@ -225,8 +225,8 @@ const Login = () => {
                   }`}
                 >
                   {isLoading 
-                    ? (isRegistering ? 'Creating Account...' : 'Signing in...') 
-                    : (isRegistering ? 'Create Account' : 'Sign In')}
+                    ? (isRegistering ? 'Kreiranje Naloga...' : 'Prijavljivanje...') 
+                    : (isRegistering ? 'Kreiraj Nalog' : 'Prijavi se')}
                 </button>
               </div>
             </form>
@@ -243,16 +243,16 @@ const Login = () => {
                 className="text-[#2b7de9] hover:underline text-sm"
               >
                 {isRegistering 
-                  ? 'Already have an account? Sign in' 
-                  : "Don't have an account? Create one"}
+                  ? 'Već imate nalog? Prijavite se' 
+                  : "Nemate nalog? Kreirajte ga"}
               </button>
             </div>
             
             {!isRegistering && (
               <div className="mt-6 text-center text-sm text-gray-600">
-                <p>Demo credentials:</p>
+                <p>Demo podaci:</p>
                 <p className="mt-1">Admin: admin@example.com / password</p>
-                <p>Creator: creator@example.com / password</p>
+                <p>Kreator: creator@example.com / password</p>
               </div>
             )}
 
@@ -261,7 +261,7 @@ const Login = () => {
                 onClick={() => setShowLoginForm(false)}
                 className="text-gray-500 hover:text-gray-700 text-sm"
               >
-                ← Back to Home
+                ← Nazad na Početnu
               </button>
             </div>
           </div>
@@ -271,14 +271,14 @@ const Login = () => {
             <div className="text-center mb-16">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 mb-8">
                 <Star size={16} className="mr-2" />
-                <span>Trusted by 1000+ Balkan Creators</span>
+                <span>Povereno od strane 1000+ Balkanskih Kreatora</span>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                Turn Your Content Into Income<br />in the Balkan Region
+                Pretvorite Vaš Sadržaj u Prihod<br />u Balkanskom Regionu
               </h1>
               <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                Join our platform and monetize your creativity. Create authentic content for brands, 
-                reach millions, and earn competitive rewards in Serbia, Croatia, and beyond.
+                Pridružite se našoj platformi i monetizujte svoju kreativnost. Kreirajte autentičan sadržaj za brendove, 
+                dosegnite milione i zarađujte konkurentne nagrade u Srbiji, Hrvatskoj i šire.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
@@ -288,14 +288,14 @@ const Login = () => {
                   }}
                   className="bg-[#ff9800] hover:bg-[#ff9800]/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors flex items-center"
                 >
-                  Start Earning Today
+                  Počnite da Zarađujete Danas
                   <ArrowRight size={20} className="ml-2" />
                 </button>
                 <a
                   href="#how-it-works"
                   className="text-white hover:text-gray-200 transition-colors flex items-center"
                 >
-                  Learn More
+                  Saznajte Više
                   <ArrowRight size={20} className="ml-2" />
                 </a>
               </div>
@@ -305,15 +305,15 @@ const Login = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               <div className="bg-white/5 backdrop-blur-lg rounded-lg p-6 text-center">
                 <div className="text-3xl font-bold text-[#ff9800] mb-2">€500+</div>
-                <p className="text-gray-300">Average Monthly Earnings</p>
+                <p className="text-gray-300">Prosečna Mesečna Zarada</p>
               </div>
               <div className="bg-white/5 backdrop-blur-lg rounded-lg p-6 text-center">
                 <div className="text-3xl font-bold text-[#2b7de9] mb-2">1M+</div>
-                <p className="text-gray-300">Monthly Views</p>
+                <p className="text-gray-300">Mesečni Pregledi</p>
               </div>
               <div className="bg-white/5 backdrop-blur-lg rounded-lg p-6 text-center">
                 <div className="text-3xl font-bold text-green-500 mb-2">100+</div>
-                <p className="text-gray-300">Active Campaigns</p>
+                <p className="text-gray-300">Aktivne Kampanje</p>
               </div>
             </div>
 
@@ -323,10 +323,10 @@ const Login = () => {
                 <div className="bg-[#ff9800]/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Camera className="text-[#ff9800]" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">UGC Content Creation</h3>
+                <h3 className="text-xl font-semibold text-white mb-2">UGC Kreiranje Sadržaja</h3>
                 <p className="text-gray-300">
-                  Create authentic user-generated content for leading Balkan brands. Share your genuine 
-                  experiences and build a professional portfolio while earning.
+                  Kreirajte autentičan korisnički generisan sadržaj za vodeće balkanske brendove. Podelite svoja 
+                  istinska iskustva i izgradite profesionalni portfolio dok zarađujete.
                 </p>
               </div>
 
@@ -334,10 +334,10 @@ const Login = () => {
                 <div className="bg-[#2b7de9]/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Scissors className="text-[#2b7de9]" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Video Clipping</h3>
+                <h3 className="text-xl font-semibold text-white mb-2">Video Klipovanje</h3>
                 <p className="text-gray-300">
-                  Transform long-form content into engaging short clips. Perfect for creators who excel 
-                  at video editing and storytelling in local languages.
+                  Transformišite dugačak sadržaj u privlačne kratke klipove. Savršeno za kreatore koji se ističu 
+                  u video editovanju i pripovedanju na lokalnim jezicima.
                 </p>
               </div>
 
@@ -345,10 +345,10 @@ const Login = () => {
                 <div className="bg-green-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Wallet className="text-green-500" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Competitive Earnings</h3>
+                <h3 className="text-xl font-semibold text-white mb-2">Konkurentne Zarade</h3>
                 <p className="text-gray-300">
-                  Earn based on views and engagement. Top creators can earn significant income through 
-                  our transparent, performance-based system.
+                  Zarađujte na osnovu pregleda i angažovanja. Najbolji kreatori mogu zaraditi značajan prihod kroz 
+                  naš transparentan sistem zasnovan na performansama.
                 </p>
               </div>
 
@@ -356,10 +356,10 @@ const Login = () => {
                 <div className="bg-purple-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Trophy className="text-purple-500" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Monthly Competitions</h3>
+                <h3 className="text-xl font-semibold text-white mb-2">Mesečna Takmičenja</h3>
                 <p className="text-gray-300">
-                  Participate in special campaigns with prize pools up to €5000. Compete with other creators 
-                  and win additional rewards.
+                  Učestvujte u specijalnim kampanjama sa nagradnim fondovima do €5000. Takmičite se sa drugim kreatorima 
+                  i osvojite dodatne nagrade.
                 </p>
               </div>
 
@@ -367,10 +367,10 @@ const Login = () => {
                 <div className="bg-pink-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Globe className="text-pink-500" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Local Market Focus</h3>
+                <h3 className="text-xl font-semibold text-white mb-2">Fokus na Lokalno Tržište</h3>
                 <p className="text-gray-300">
-                  Create content in Serbian, Croatian, or your local language. Connect with brands looking 
-                  specifically to reach Balkan audiences.
+                  Kreirajte sadržaj na srpskom, hrvatskom ili vašem lokalnom jeziku. Povežite se sa brendovima koji 
+                  specifično žele da dosegnu balkanske publike.
                 </p>
               </div>
 
@@ -378,10 +378,10 @@ const Login = () => {
                 <div className="bg-yellow-500/20 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                   <Target className="text-yellow-500" size={24} />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Growth Opportunities</h3>
+                <h3 className="text-xl font-semibold text-white mb-2">Prilike za Rast</h3>
                 <p className="text-gray-300">
-                  Build your portfolio, gain experience with major brands, and grow your personal brand 
-                  while earning money.
+                  Izgradite svoj portfolio, steknite iskustvo sa velikim brendovima i razvijte svoj lični brend 
+                  dok zarađujete novac.
                 </p>
               </div>
             </div>
@@ -390,40 +390,40 @@ const Login = () => {
             <div id="how-it-works" className="text-center mb-16">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-500/10 text-green-400 mb-8">
                 <Zap size={16} className="mr-2" />
-                <span>Simple 4-Step Process</span>
+                <span>Jednostavan Proces u 4 Koraka</span>
               </div>
-              <h2 className="text-3xl font-bold text-white mb-12">How It Works</h2>
+              <h2 className="text-3xl font-bold text-white mb-12">Kako Funkcioniše</h2>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div className="relative">
                   <div className="bg-[#2b7de9]/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Users className="text-[#2b7de9]" size={32} />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">1. Sign Up</h3>
-                  <p className="text-gray-300">Create your free account and complete your creator profile</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">1. Registrujte se</h3>
+                  <p className="text-gray-300">Kreirajte svoj besplatan nalog i dopunite svoj kreatorski profil</p>
                 </div>
 
                 <div className="relative">
                   <div className="bg-[#ff9800]/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Video className="text-[#ff9800]" size={32} />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">2. Choose Campaigns</h3>
-                  <p className="text-gray-300">Browse and select campaigns that match your style and audience</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">2. Izaberite Kampanje</h3>
+                  <p className="text-gray-300">Pregledajte i izaberite kampanje koje odgovaraju vašem stilu i publici</p>
                 </div>
 
                 <div className="relative">
                   <div className="bg-green-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Camera className="text-green-500" size={32} />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">3. Create Content</h3>
-                  <p className="text-gray-300">Produce and submit your UGC videos or clips</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">3. Kreirajte Sadržaj</h3>
+                  <p className="text-gray-300">Proizvedite i pošaljite svoje UGC videe ili klipove</p>
                 </div>
 
                 <div className="relative">
                   <div className="bg-purple-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <DollarSign className="text-purple-500" size={32} />
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">4. Get Paid</h3>
-                  <p className="text-gray-300">Earn money based on views and engagement</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">4. Zarađujte</h3>
+                  <p className="text-gray-300">Zarađujte novac na osnovu pregleda i angažovanja</p>
                 </div>
               </div>
             </div>
@@ -433,10 +433,10 @@ const Login = () => {
               <div className="text-center mb-12">
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-500/10 text-purple-400 mb-8">
                   <Star size={16} className="mr-2" />
-                  <span>Success Stories</span>
+                  <span>Priče o Uspehu</span>
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-4">Creator Success Stories</h2>
-                <p className="text-xl text-gray-300">See how creators are earning on our platform</p>
+                <h2 className="text-3xl font-bold text-white mb-4">Priče Uspešnih Kreatora</h2>
+                <p className="text-xl text-gray-300">Pogledajte kako kreatori zarađuju na našoj platformi</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -444,17 +444,17 @@ const Login = () => {
                   <div className="flex items-center mb-4">
                     <img
                       src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      alt="Creator"
+                      alt="Kreator"
                       className="w-12 h-12 rounded-full object-cover"
                     />
                     <div className="ml-4">
                       <h4 className="text-white font-semibold">Marija S.</h4>
-                      <p className="text-gray-400">Beauty Creator</p>
+                      <p className="text-gray-400">Beauty Kreator</p>
                     </div>
                   </div>
                   <p className="text-gray-300">
-                    "I earned over €2000 in my first month creating UGC content for beauty brands. 
-                    The platform made it easy to connect with brands and get paid for my work."
+                    "Zaradila sam preko €2000 u prvom mesecu kreirajući UGC sadržaj za beauty brendove. 
+                    Platforma je olakšala povezivanje sa brendovima i plaćanje za moj rad."
                   </p>
                 </div>
 
@@ -462,17 +462,17 @@ const Login = () => {
                   <div className="flex items-center mb-4">
                     <img
                       src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      alt="Creator"
+                      alt="Kreator"
                       className="w-12 h-12 rounded-full object-cover"
                     />
                     <div className="ml-4">
                       <h4 className="text-white font-semibold">Stefan M.</h4>
-                      <p className="text-gray-400">Tech Reviewer</p>
+                      <p className="text-gray-400">Tech Recenzent</p>
                     </div>
                   </div>
                   <p className="text-gray-300">
-                    "The competition feature is amazing! I won first place in a tech review campaign 
-                    and earned a €1000 bonus on top of my regular earnings."
+                    "Funkcija takmičenja je neverovatna! Osvojio sam prvo mesto u tech review kampanji 
+                    i zaradio €1000 bonus pored redovne zarade."
                   </p>
                 </div>
 
@@ -480,17 +480,17 @@ const Login = () => {
                   <div className="flex items-center mb-4">
                     <img
                       src="https://images.pexels.com/photos/1858175/pexels-photo-1858175.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                      alt="Creator"
+                      alt="Kreator"
                       className="w-12 h-12 rounded-full object-cover"
                     />
                     <div className="ml-4">
                       <h4 className="text-white font-semibold">Ana K.</h4>
-                      <p className="text-gray-400">Lifestyle Creator</p>
+                      <p className="text-gray-400">Lifestyle Kreator</p>
                     </div>
                   </div>
                   <p className="text-gray-300">
-                    "Creating content in Croatian helped me stand out. Brands love working with local 
-                    creators, and I've built a steady income stream."
+                    "Kreiranje sadržaja na hrvatskom mi je pomoglo da se istaknem. Brendovi vole da rade sa lokalnim 
+                    kreatorima, i izgradila sam stabilan tok prihoda."
                   </p>
                 </div>
               </div>
@@ -499,10 +499,10 @@ const Login = () => {
             {/* CTA Section */}
             <div className="text-center mb-16">
               <div className="bg-gradient-to-r from-[#2b7de9]/20 to-[#ff9800]/20 rounded-lg p-12 backdrop-blur-lg border border-white/10">
-                <h2 className="text-3xl font-bold text-white mb-6">Ready to Start Earning?</h2>
+                <h2 className="text-3xl font-bold text-white mb-6">Spremni da Počnete da Zarađujete?</h2>
                 <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                  Join hundreds of creators already making money on our platform. Start your journey today 
-                  and turn your content into income!
+                  Pridružite se stotinama kreatora koji već zarađuju na našoj platformi. Počnite svoje putovanje danas 
+                  i pretvorite svoj sadržaj u prihod!
                 </p>
                 <button
                   onClick={() => {
@@ -511,7 +511,7 @@ const Login = () => {
                   }}
                   className="bg-[#ff9800] hover:bg-[#ff9800]/90 text-white px-8 py-4 rounded-lg font-medium text-lg transition-colors flex items-center mx-auto"
                 >
-                  Create Your Account
+                  Kreirajte Vaš Nalog
                   <ArrowRight size={20} className="ml-2" />
                 </button>
               </div>

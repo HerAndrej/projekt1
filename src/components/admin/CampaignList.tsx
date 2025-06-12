@@ -17,7 +17,7 @@ const CampaignList = () => {
         setIsLoading(true);
         await getCampaigns();
       } catch (err) {
-        setError('Failed to load campaigns');
+        setError('Neuspešno učitavanje kampanja');
         console.error('Error loading campaigns:', err);
       } finally {
         setIsLoading(false);
@@ -52,13 +52,13 @@ const CampaignList = () => {
     <div>
       <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
         <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'} mb-4 sm:mb-0`}>
-          Campaigns
+          Kampanje
         </h1>
         <Link
           to="/admin/campaigns/new"
           className="bg-[#2b7de9] hover:bg-[#2b7de9]/90 text-white px-4 py-2 rounded-md font-medium transition-colors"
         >
-          Create New Campaign
+          Kreiraj Novu Kampanju
         </Link>
       </div>
       
@@ -67,7 +67,7 @@ const CampaignList = () => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="text"
-            placeholder="Search campaigns..."
+            placeholder="Pretraži kampanje..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className={`w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9] ${
@@ -83,10 +83,10 @@ const CampaignList = () => {
         <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-md p-6 text-center`}>
           <AlertCircle size={48} className="mx-auto mb-4 text-gray-400" />
           <h3 className={`text-lg font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-            No campaigns found
+            Nema pronađenih kampanja
           </h3>
           <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} mt-1`}>
-            {searchTerm ? 'Try adjusting your search term' : 'Create your first campaign to get started'}
+            {searchTerm ? 'Pokušajte da prilagodite pretragu' : 'Kreirajte svoju prvu kampanju da biste počeli'}
           </p>
         </div>
       ) : (
@@ -140,7 +140,8 @@ const CampaignList = () => {
                         ? 'bg-blue-100 text-blue-800'
                         : 'bg-red-100 text-red-800'
                     }`}>
-                      {campaign.status}
+                      {campaign.status === 'active' ? 'Aktivna' : 
+                       campaign.status === 'completed' ? 'Završena' : 'Otkazana'}
                     </span>
                   </div>
                   
@@ -150,12 +151,12 @@ const CampaignList = () => {
                   
                   <div className="flex items-center text-gray-500 text-sm mb-2">
                     <Calendar size={16} className="mr-1" />
-                    <span>{new Date(campaign.created_at).toLocaleDateString()}</span>
+                    <span>Kreirana {new Date(campaign.created_at).toLocaleDateString()}</span>
                   </div>
                   
                   <div className="flex items-center text-gray-500 text-sm">
                     <Users size={16} className="mr-1" />
-                    <span>{submissionsCount} {submissionsCount === 1 ? 'submission' : 'submissions'}</span>
+                    <span>{submissionsCount} {submissionsCount === 1 ? 'prijava' : 'prijava'}</span>
                   </div>
                 </div>
               </Link>
