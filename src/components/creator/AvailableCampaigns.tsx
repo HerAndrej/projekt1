@@ -16,7 +16,9 @@ import {
   TrendingUp,
   Users,
   Tag,
-  Clock
+  Clock,
+  Instagram,
+  Youtube
 } from 'lucide-react';
 
 const AvailableCampaigns = () => {
@@ -48,6 +50,32 @@ const AvailableCampaigns = () => {
       
       return campaign.status === 'active' && matchesSearch && matchesContentType && matchesCompetition;
     });
+
+  const getNetworkIcon = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return <Instagram size={16} className="text-purple-500" />;
+      case 'youtube':
+        return <Youtube size={16} className="text-red-500" />;
+      case 'tiktok':
+        return <div className="w-4 h-4 bg-black rounded-sm flex items-center justify-center text-white text-xs font-bold">T</div>;
+      default:
+        return null;
+    }
+  };
+
+  const getNetworkName = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return 'Instagram';
+      case 'youtube':
+        return 'YouTube';
+      case 'tiktok':
+        return 'TikTok';
+      default:
+        return network;
+    }
+  };
   
   return (
     <div>
@@ -178,7 +206,7 @@ const AvailableCampaigns = () => {
                         <DollarSign className="text-green-600 dark:text-green-400 mr-2" size={20} />
                         <h3 className="font-semibold text-green-800 dark:text-green-200">Earnings</h3>
                       </div>
-                      <p className="text-green-600 dark:text-green-400 font-bold">${campaign.earnings_per_3k_views}/3k views</p>
+                      <p className="text-green-600 dark:text-green-400 font-bold">${campaign.earnings_per_1k_views}/1k views</p>
                     </div>
 
                     <div className="bg-blue-50 dark:bg-blue-900 rounded-lg p-4">
@@ -187,6 +215,24 @@ const AvailableCampaigns = () => {
                         <h3 className="font-semibold text-blue-800 dark:text-blue-200">Creators</h3>
                       </div>
                       <p className="text-blue-600 dark:text-blue-400 font-bold">{submissions.filter(s => s.campaign_id === campaign.id).length} submissions</p>
+                    </div>
+                  </div>
+
+                  {/* Allowed Networks */}
+                  <div className="mb-6">
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Dozvoljene Mreže:</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {campaign.allowed_networks?.map((network) => (
+                        <div
+                          key={network}
+                          className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-lg"
+                        >
+                          {getNetworkIcon(network)}
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            {getNetworkName(network)}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 

@@ -22,7 +22,9 @@ import {
   AlertTriangle,
   Image,
   Download,
-  Save
+  Save,
+  Instagram,
+  Youtube
 } from 'lucide-react';
 
 type TabType = 'submissions' | 'competition' | 'requirements';
@@ -49,7 +51,7 @@ const CampaignDetails = () => {
   const [pendingViewsUpdates, setPendingViewsUpdates] = useState<ViewsUpdate[]>([]);
   const [isEditingBudget, setIsEditingBudget] = useState(false);
   const [editedBudget, setEditedBudget] = useState(campaign?.total_budget || 0);
-  const [editedEarningsPerView, setEditedEarningsPerView] = useState(campaign?.earnings_per_3k_views || 0);
+  const [editedEarningsPerView, setEditedEarningsPerView] = useState(campaign?.earnings_per_1k_views || 0);
 
   const handleBudgetUpdate = async () => {
     if (!campaign) return;
@@ -59,7 +61,7 @@ const CampaignDetails = () => {
     try {
       await updateCampaign(campaign.id, {
         total_budget: editedBudget,
-        earnings_per_3k_views: editedEarningsPerView
+        earnings_per_1k_views: editedEarningsPerView
       });
       
       setIsEditingBudget(false);
@@ -115,7 +117,7 @@ const CampaignDetails = () => {
       
       if (!update || !campaign || !submissionToUpdate) return;
 
-      const earnings = Math.floor(update.views / 3000) * campaign.earnings_per_3k_views;
+      const earnings = Math.floor(update.views / 1000) * campaign.earnings_per_1k_views;
       
       const result = await updateSubmission(submissionId, { 
         views: update.views,
@@ -161,7 +163,7 @@ const CampaignDetails = () => {
       requirements: campaign.requirements,
       status: campaign.status,
       content_type: campaign.content_type,
-      earnings_per_3k_views: campaign.earnings_per_3k_views,
+      earnings_per_1k_views: campaign.earnings_per_1k_views,
       total_budget: campaign.total_budget,
       created_at: campaign.created_at,
       total_views: statistics?.totalViews || 0,
@@ -202,6 +204,32 @@ const CampaignDetails = () => {
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
+  };
+
+  const getNetworkIcon = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return <Instagram size={16} className="text-purple-500" />;
+      case 'youtube':
+        return <Youtube size={16} className="text-red-500" />;
+      case 'tiktok':
+        return <div className="w-4 h-4 bg-black rounded-sm flex items-center justify-center text-white text-xs font-bold">T</div>;
+      default:
+        return null;
+    }
+  };
+
+  const getNetworkName = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return 'Instagram';
+      case 'youtube':
+        return 'YouTube';
+      case 'tiktok':
+        return 'TikTok';
+      default:
+        return network;
+    }
   };
 
   if (!campaign) {
@@ -367,7 +395,7 @@ const CampaignDetails = () => {
                 <div className="flex items-center space-x-4">
                   <DollarSign className="text-green-500" size={24} />
                   <span className="text-xl font-semibold text-green-600">
-                    ${campaign.earnings_per_3k_views}/3k views
+                    ${campaign.earnings_per_1k_views}/1k views
                   </span>
                 </div>
               </div>
@@ -423,6 +451,33 @@ const CampaignDetails = () => {
                     <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Requirements</h3>
                     <div className={`${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-50 text-gray-700'} rounded-lg p-4`}>
                       <p className="whitespace-pre-wrap">{campaign.requirements}</p>
+                    </div>
+                  </div>
+
+                  {/* Allowed Networks */}
+                  <div>
+                    <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                      Dozvoljene Mreže
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {campaign.allowed_networks?.map((network) => (
+                        <div
+                          key={network}
+                          className={`flex items-center space-x-3 p-4 rounded-lg border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}
+                        >
+                          {getNetworkIcon(network)}
+                          <div>
+                            <h4 className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                              {getNetworkName(network)}
+                            </h4>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                              {network === 'instagram' && 'Stories, Reels, Posts'}
+                              {network === 'tiktok' && 'Short Videos'}
+                              {network === 'youtube' && 'Videos, Shorts'}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -625,7 +680,7 @@ const CampaignDetails = () => {
                   onClick={() => {
                     setIsEditingBudget(true);
                     setEditedBudget(campaign.total_budget);
-                    setEditedEarningsPerView(campaign.earnings_per_3k_views);
+                    setEditedEarningsPerView(campaign.earnings_per_1k_views);
                   }}
                   className="text-[#2b7de9] hover:text-[#2b7de9]/80 text-sm"
                 >
@@ -667,7 +722,7 @@ const CampaignDetails = () => {
                 </div>
                 <div>
                   <label className="block text-sm text-gray-500 mb-1">
-                    Earnings per 3k Views ($)
+                    Earnings per 1k Views ($)
                   </label>
                   <input
                     type="number"
@@ -709,11 +764,11 @@ const CampaignDetails = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Earnings per 3k Views</p>
+                  <p className="text-sm text-gray-500">Earnings per 1k Views</p>
                   <div className="flex items-center mt-1">
                     <Eye className="text-blue-500 mr-2" size={20} />
                     <span className={`text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                      ${campaign.earnings_per_3k_views}
+                      ${campaign.earnings_per_1k_views}
                     </span>
                   </div>
                 </div>

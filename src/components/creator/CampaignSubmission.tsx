@@ -18,7 +18,9 @@ import {
   Image,
   Info,
   Plus,
-  X
+  X,
+  Instagram,
+  Youtube
 } from 'lucide-react';
 
 type TabType = 'requirements' | 'submissions' | 'competition';
@@ -101,6 +103,32 @@ const CampaignSubmission = () => {
     }
   };
 
+  const getNetworkIcon = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return <Instagram size={16} className="text-purple-500" />;
+      case 'youtube':
+        return <Youtube size={16} className="text-red-500" />;
+      case 'tiktok':
+        return <div className="w-4 h-4 bg-black rounded-sm flex items-center justify-center text-white text-xs font-bold">T</div>;
+      default:
+        return null;
+    }
+  };
+
+  const getNetworkName = (network: string) => {
+    switch (network) {
+      case 'instagram':
+        return 'Instagram';
+      case 'youtube':
+        return 'YouTube';
+      case 'tiktok':
+        return 'TikTok';
+      default:
+        return network;
+    }
+  };
+
   if (!user) return null;
   
   if (!campaign) {
@@ -128,7 +156,6 @@ const CampaignSubmission = () => {
         ['first', 'second', 'third'][index] || ''
       ]
     }));
-    console.log(theme)
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -208,7 +235,7 @@ const CampaignSubmission = () => {
                 <div className="flex items-center space-x-4">
                   <DollarSign className="text-green-500" size={24} />
                   <span className="text-xl font-semibold text-green-600">
-                    ${campaign.earnings_per_3k_views}/3k views
+                    ${campaign.earnings_per_1k_views}/1k views
                   </span>
                 </div>
               </div>
@@ -216,7 +243,7 @@ const CampaignSubmission = () => {
             </div>
           </div>
 
-          <div className={` shadow-md overflow-hidden ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`shadow-md overflow-hidden ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
             <div className="border-b border-gray-200">
               <nav className="flex">
                 <button
@@ -264,6 +291,33 @@ const CampaignSubmission = () => {
                     <h3 className={`${theme === 'dark' ? 'text-white' : 'text-gray-700'}`}>{t('campaigns.details.requirements')}</h3>
                     <div className="bg-gray-50 rounded-lg p-4">
                       <p className="text-gray-700 whitespace-pre-wrap">{campaign.requirements}</p>
+                    </div>
+                  </div>
+
+                  {/* Allowed Networks */}
+                  <div>
+                    <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                      Dozvoljene Mreže
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {campaign.allowed_networks?.map((network) => (
+                        <div
+                          key={network}
+                          className={`flex items-center space-x-3 p-4 rounded-lg border ${theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}
+                        >
+                          {getNetworkIcon(network)}
+                          <div>
+                            <h4 className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                              {getNetworkName(network)}
+                            </h4>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                              {network === 'instagram' && 'Stories, Reels, Posts'}
+                              {network === 'tiktok' && 'Short Videos'}
+                              {network === 'youtube' && 'Videos, Shorts'}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -449,7 +503,7 @@ const CampaignSubmission = () => {
         </div>
 
         <div className="space-y-6">
-          <div className= {`rounded-lg shadow-md p-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`rounded-lg shadow-md p-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
             <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800 mb-4'}`}>{t('campaigns.details.budget.title')}</h3>
             <div className="space-y-4">
               <div>
@@ -484,7 +538,7 @@ const CampaignSubmission = () => {
                 <div className="flex items-center mt-1">
                   <Eye className="text-blue-500 mr-2" size={20} />
                   <span className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                    ${campaign.earnings_per_3k_views}
+                    ${campaign.earnings_per_1k_views}
                   </span>
                 </div>
               </div>
@@ -560,9 +614,11 @@ const CampaignSubmission = () => {
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2b7de9]"
                     >
                       <option value="">{t('submissions.platform')}</option>
-                      <option value="instagram">Instagram</option>
-                      <option value="youtube">YouTube</option>
-                      <option value="tiktok">TikTok</option>
+                      {campaign.allowed_networks?.map((network) => (
+                        <option key={network} value={network}>
+                          {getNetworkName(network)}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
